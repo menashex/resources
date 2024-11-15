@@ -1,0 +1,133 @@
+registry_edits:
+  # disable windows online search
+  - path: HKCU:\Software\Policies\Microsoft\Windows
+    name: DisableSearchBoxSuggestions
+    data: 1
+    type:  dword
+    state: present
+  
+  # Disable Bing suggestions from the Start menu
+  - path: HKCU:\Software\Policies\Microsoft\Windows\Explorer
+    name: DisableSearchBoxSuggestions
+    data: 1
+    type:  dword
+    state: present
+  
+  # Disable Windows Copilot 
+  - path: HKCU:\Software\Policies\Microsoft\Windows\WindowsCopilot
+    name: TurnOffWindowsCopilot
+    data: 1
+    type:  dword
+    state: present
+
+  #  Disable the Weather/News icon in the Taskbar 
+  - path: HKLM:\SOFTWARE\Policies\Microsoft\Dsh
+    name: AllowNewsAndInterests
+    data: 0
+    type:  dword
+    state: present
+
+  #  Allign taskbar to the left
+  - path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+    name: TaskbarAl
+    data: 0
+    type:  dword
+    state: present
+
+  # Disable Network Throttling 
+  - path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile
+    name: NetworkThrottlingIndex
+    data: 0xffffffff
+    type:  dword
+    state: present
+
+  # Disable Power Throttling 
+  - path: HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling
+    name: PowerThrottlingOff
+    data: 1
+    type:  dword
+    state: present
+
+  # Reduce resource allocation to background tasks
+  - path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile
+    name: SystemResponsiveness
+    data: 10
+    type:  dword
+    state: present
+
+  # force programs to close on shutdown
+  - path: HKLM:\SYSTEM\CurrentControlSet\Control
+    name: WaitToKillServiceTimeout
+    data: '2000'
+    type:  string
+    state: present
+  
+  # Restore Windows 10 context menu 
+  - path: HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32
+    name: (Default)
+    data: ''
+    type:  none
+    state: present
+
+  # Optimize tcp
+  - path: HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
+    name: DefaultTTL
+    data: 64
+    type:  dword
+    state: present
+
+  # Optimize tcp
+  - path: HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
+    name: GlobalMaxTcpWindowSize 
+    data: 65535
+    type:  dword
+    state: present
+  
+  # Optimize tcp
+  - path: HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
+    name: MaxUserPort  
+    data: 65534
+    type:  dword
+    state: present
+
+  # Optimize tcp
+  - path: HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
+    name: Tcp1323Opts   
+    data: 1
+    type:  dword
+    state: present
+
+  # Optimize tcp
+  - path: HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
+    name: TcpMaxDupAcks    
+    data: 2
+    type:  dword
+    state: present
+
+  # Optimize tcp
+  - path: HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
+    name: TCPTimedWaitDelay     
+    data: 30
+    type:  dword
+    state: present
+
+  # DIstable cortana
+  - path: HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search
+    name: AllowCortana     
+    data: 0
+    type:  dword
+    state: present
+
+  # Set dark mode
+  - path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize
+    name: AppsUseLightTheme     
+    data: 0
+    type:  dword
+    state: present
+  
+  # Set dark mode
+  - path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize
+    name: SystemUsesLightTheme     
+    data: 0
+    type:  dword
+    state: present

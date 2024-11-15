@@ -1,0 +1,2 @@
+[windows]
+winhost ansible_host=127.0.0.1 ansible_user=menash ansible_connection=winrm

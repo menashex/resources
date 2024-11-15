@@ -1,0 +1,1 @@
+ansible-playbook -i inventory.yaml installer.yml -Kk

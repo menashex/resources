@@ -1,0 +1,9 @@
+---
+- name: Install Chocolatey on Windows
+  hosts: windows
+  roles:
+    - win_setup
+  vars_files:
+    - vars/choco_packages.yml
+    - vars/scripts.yml
+    - vars/registry_edits.yml

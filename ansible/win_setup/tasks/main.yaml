@@ -1,0 +1,45 @@
+---
+# setting up chocolatey
+- name: Check if Chocolatey is installed
+  win_command: choco -v
+  register: choco_check
+  ignore_errors: yes
+
+- name: Install Chocolatey if not installed
+  win_shell: |
+    Set-ExecutionPolicy Bypass -Scope Process -Force;
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
+    iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+  when: choco_check.failed
+  args:
+    executable: powershell
+
+- name: Verify Chocolatey installation
+  win_command: choco -v
+  register: choco_version
+
+- name: Display Chocolatey version
+  debug:
+    msg: "Chocolatey version: {{ choco_version.stdout }}"
+
+# installing chocolatey packages
+- name: Install packages with Chocolatey
+  win_chocolatey:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ choco_packages }}"
+
+# running bat scripts
+- name: Run multiple bat scripts
+  win_command: "{{ item }}"
+  loop: "{{ bat_scripts }}"
+
+# apply registry edits  
+- name: Apply registry edits
+  win_regedit:
+    path: "{{ item.path }}"
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: "{{ item.state }}"
+  loop: "{{ registry_edits }}"
